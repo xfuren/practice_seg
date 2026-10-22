@@ -1,0 +1,35 @@
+[workspace]
+authors = ["Xiao Furen <xfr@dr.com>"]
+channels = ["conda-forge"]
+name = "practice_seg"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+# PPTX 處理工具（pandoc + python-pptx），與預設的 practice_seg 環境分離
+[environments.ppt]
+no-default-feature = true
+
+[dependencies]
+python = "3.11.*"
+ipykernel = "*"
+
+[pypi-dependencies]
+totalsegmentator = "*"
+torch = "==2.5.1"
+
+[environments.ppt.dependencies]
+pandoc = "*"
+python-pptx = "*"
+
+[tasks]
+register-kernel = "python -m ipykernel install --user --name myenv111 --display-name 'Python(myenv111)'"
+test-torch = "python -c 'import torch; print(\"PyTorch:\", torch.__version__); print(\"CUDA:\", torch.version.cuda); print(\"CUDA available:\", torch.cuda.is_available()); print(\"GPU count:\", torch.cuda.device_count())'"
+test-totalseg = "TotalSegmentator --help"
+
+[tasks.extract]
+cmd = "pandoc '步驟第二版.pptx' -t gfm --wrap=none -o 步驟第二版_原始.md"
+default-environment = "ppt"
+
+[tasks.info]
+cmd = "python scripts/pptx_info.py '步驟第二版.pptx'"
+default-environment = "ppt"
