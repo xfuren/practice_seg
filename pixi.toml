@@ -5,31 +5,54 @@ name = "practice_seg"
 platforms = ["linux-64"]
 version = "0.1.0"
 
-# PPTX 處理工具（pandoc + python-pptx），與預設的 practice_seg 環境分離
-[environments.ppt]
-no-default-feature = true
+# ============================================================
+# 課程全部相依都在同一個 default 環境：
+#   第一部分（TotalSegmentator）+ 第二部分（nnU-Net 訓練 / 推論）
+#   + 簡報處理工具（pandoc / python-pptx）
+#
+# 注意（pixi 0.83 已驗證）：不要把課程相依拆成多個非 default 環境——
+# 非 default 環境的 pypi 相依會洩漏進 default 環境的 lock，
+# 且 [tasks] 的 default-environment 目前不生效。
+# ============================================================
 
 [dependencies]
 python = "3.11.*"
 ipykernel = "*"
-
-[pypi-dependencies]
-totalsegmentator = "*"
-torch = "==2.5.1"
-
-[environments.ppt.dependencies]
+jupyter_client = "*"
+# nnU-Net 訓練時需要的 C 編譯器與 graphviz
+gcc_linux-64 = "*"
+gxx_linux-64 = "*"
+graphviz = "*"
+# 簡報處理工具
 pandoc = "*"
 python-pptx = "*"
 
+[pypi-dependencies]
+# 第一部分
+totalsegmentator = "*"
+# 第二部分（nnunetv2 直接自官方 GitHub 安裝）
+torch = "==2.5.1"
+torchvision = "==0.20.1"
+torchaudio = "==2.5.1"
+batchgenerators = "==0.25.5"
+nnunetv2 = { git = "https://github.com/MIC-DKFZ/nnUNet.git" }
+
+# 防止 ~/.local（user site）的舊套件遮蔽 pixi 環境內的套件
+[activation.env]
+PYTHONNOUSERSITE = "1"
+
+# ============================================================
+# tasks（用 `pixi run <task>` 執行）
+# ============================================================
+
 [tasks]
+# Jupyter kernel 註冊（myenv111：TotalSegmentator 部分；nnunet333：nnU-Net 部分，同一環境）
 register-kernel = "python -m ipykernel install --user --name myenv111 --display-name 'Python(myenv111)'"
+register-kernel-nnunet = "python -m ipykernel install --user --name nnunet333 --display-name 'Python (nnU-Net333)'"
+# 測試
 test-torch = "python -c 'import torch; print(\"PyTorch:\", torch.__version__); print(\"CUDA:\", torch.version.cuda); print(\"CUDA available:\", torch.cuda.is_available()); print(\"GPU count:\", torch.cuda.device_count())'"
 test-totalseg = "TotalSegmentator --help"
-
-[tasks.extract]
-cmd = "pandoc '步驟第二版.pptx' -t gfm --wrap=none -o 步驟第二版_原始.md"
-default-environment = "ppt"
-
-[tasks.info]
-cmd = "python scripts/pptx_info.py '步驟第二版.pptx'"
-default-environment = "ppt"
+test-nnunet = "python -c 'import torch, nnunetv2, batchgenerators; print(torch.__version__); print(nnunetv2.__file__); print(batchgenerators.__file__)'"
+# 簡報工具
+extract = "pandoc '步驟第二版.pptx' -t gfm --wrap=none -o 步驟第二版_原始.md"
+info = "python scripts/pptx_info.py '步驟第二版.pptx'"

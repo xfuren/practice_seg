@@ -13,3 +13,6 @@ predictions_3d_fullres/
 
 # 原始簡報（含舊版截圖，不放入 public repo；本機保留）
 步驟第二版.pptx
+
+# pixi run extract 產出
+步驟第二版_原始.md
