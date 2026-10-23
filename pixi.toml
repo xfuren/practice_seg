@@ -16,7 +16,7 @@ version = "0.1.0"
 # ============================================================
 
 [dependencies]
-python = "3.11.*"
+python = "3.14.*"
 ipykernel = "*"
 jupyter_client = "*"
 # nnU-Net 訓練時需要的 C 編譯器與 graphviz
@@ -31,11 +31,20 @@ python-pptx = "*"
 # 第一部分
 totalsegmentator = "*"
 # 第二部分（nnunetv2 直接自官方 GitHub 安裝）
-torch = "==2.5.1"
-torchvision = "==0.20.1"
-torchaudio = "==2.5.1"
+# cu126 官方 wheel 不在 PyPI；cu130 版不支援 V100（sm_70）
+torch = "==2.14.1+cu126"
+torchvision = "==0.29.1+cu126"
+torchaudio = "==2.11.0+cu126"
 batchgenerators = "==0.25.5"
 nnunetv2 = { git = "https://github.com/MIC-DKFZ/nnUNet.git" }
+# sdist 來源 build（acvl-utils 等）需要的 bdist_wheel 後端
+wheel = "*"
+
+[pypi-options]
+extra-index-urls = ["https://download.pytorch.org/whl/cu126"]
+# acvl-utils（nnunetv2 相依）的 sdist build 需要 packaging；
+# 隔離 build 環境內沒有，改為在環境內直接 build
+no-build-isolation = true
 
 # 防止 ~/.local（user site）的舊套件遮蔽 pixi 環境內的套件
 [activation.env]
