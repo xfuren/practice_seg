@@ -27,7 +27,7 @@
 ## Notebook 規範
 
 - notebook 內以 `Path(sys.prefix) / "bin" / ...` 呼叫 TotalSegmentator / nnU-Net 執行檔——這是在 pixi env 下不改動即可運行的原因，**不要改成裸指令、conda 路徑或硬編碼家目錄**。
-- `pip_2.ipynb` 含一個舊版 `%pip install ... batchgenerators` cell（pixi 流程直接略過，md 已有說明），保留原樣。
+- `pip_2.ipynb` 沒有 `%pip install` cell：`batchgenerators==0.25.5` 由 `pixi.toml` 固定，notebook 該位置是版本檢查 cell。
 - notebook 帶有講師示範的已存 output；編輯 code cell 時注意 output 與程式碼的一致性（output 文字中含路徑）。
 - 學生 kernel 名稱：`myenv111`（TotalSegmentator 部分）、`nnunet333`（nnU-Net 部分），兩者都由同一個 pixi 環境註冊（`pixi run register-kernel` / `pixi run register-kernel-nnunet`）；nnU-Net 訓練固定 GPU 2（`CUDA_VISIBLE_DEVICES=2` / notebook 內 `GPU_ID = "2"`）。
 
