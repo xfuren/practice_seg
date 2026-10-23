@@ -2,11 +2,15 @@
 .pixi/*
 !.pixi/config.toml
 
-# nnU-Net data folders (created by 2-nnunet.ipynb / terminal steps)
-nnUNet_raw/
-nnUNet_preprocessed/
-nnUNet_results/
-predictions_3d_fullres/
+# nnU-Net data folders / symlinks (created by 2-nnunet.ipynb / terminal steps)
+nnUNet_raw
+nnUNet_preprocessed
+nnUNet_results
+predictions_3d_fullres
+
+# TotalSegmentator outputs (created by 1-totalsegmentator.ipynb)
+segmentations/
+teeth/
 
 # notebook checkpoints
 .ipynb_checkpoints/

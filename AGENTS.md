@@ -31,7 +31,7 @@
 - `2-nnunet.ipynb` 沒有 `%pip install` cell：`batchgenerators==0.25.5` 由 `pixi.toml` 固定，notebook 該位置是版本檢查 cell。
 - notebook 帶有講師示範的已存 output；編輯 code cell 時注意 output 與程式碼的一致性（output 文字中含路徑）。
 - `2-nnunet.ipynb` 的共享快取 skip 邏輯（cell 2 `link_shared` + 各 cell 的「已完成即跳過」判斷）必須與 `scripts/prepare_shared_cache.py` 的產出保持搭配（偵測 `dataset.json` / `nnUNetPlans.json`、目錄名稱 `nnUNet_raw` / `nnUNet_preprocessed`）；改動其一須同步另一。
-- 學生 kernel 名稱：`myenv111`（TotalSegmentator 部分）、`nnunet333`（nnU-Net 部分），兩者都由同一個 pixi 環境註冊（`pixi run register-kernel` / `pixi run register-kernel-nnunet`）；nnU-Net 訓練固定 GPU 2（`CUDA_VISIBLE_DEVICES=2` / notebook 內 `GPU_ID = "2"`）。
+- 學生 kernel 名稱：`myenv111`（TotalSegmentator 部分）、`nnunet333`（nnU-Net 部分），兩者都由同一個 pixi 環境註冊（`pixi run register-kernel` / `pixi run register-kernel-nnunet`）；GPU 分配採「依帳號」：notebook 自動算 `sha256(USER) % 8`（8 顆卡均勻分佈、每位學生每次同一號），講師可用 `COURSE_GPU` env 固定特定學生；`2-nnunet.ipynb` 訓練前有 GPU 擁塞檢查 cell（剩餘 VRAM <10GB 時最多等 5 分鐘）。
 
 ## Git
 
