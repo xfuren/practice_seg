@@ -178,7 +178,6 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/typing_extensions-4.16.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/tzdata-2026c-h151e31d_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/xlsxwriter-3.2.9-pyhd8ed1ab_0.conda
-      - pypi: git+https://github.com/MIC-DKFZ/nnUNet.git#1489d746e084459581ff20382c1241d8cc2eb258
       - pypi: https://download-r2.pytorch.org/whl/cu126/torch-2.14.1%2Bcu126-cp314-cp314-manylinux_2_28_x86_64.whl
       - pypi: https://download-r2.pytorch.org/whl/cu126/torchaudio-2.11.0%2Bcu126-cp314-cp314-manylinux_2_28_x86_64.whl
       - pypi: https://download-r2.pytorch.org/whl/cu126/torchvision-0.29.1%2Bcu126-cp314-cp314-manylinux_2_28_x86_64.whl
@@ -267,6 +266,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/aa/a0/e784d7a9fd277a2ee395490ec4df96608b7fe218bb1ef7dced2a1caea490/wrapt-2.5.1-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/ab/59/598237cb4a5b1fae3515ad8b402ae815a5551e236e530ba11b7a17b2c036/dicom2nifti-2.6.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ac/ed/26058d46a34c3afc95dbf46c47d4310274fff92e81388ba42f536c450d35/blosc2-4.14.1-cp311-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/b3/0a/1102f1362b290d06aaf3a92163fb424e7499dbde407230d61d2617b355f2/nnunetv2-2.8.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/b3/38/89ba8ad64ae25be8de66a6d463314cf1eb366222074cfda9ee839c56a4b4/mdurl-0.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/b3/81/4da04ced5a082363ecfa159c010d200ecbd959ae410c10c0264a38cac0f5/markdown_it_py-4.2.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/be/2f/5108cb3ee4ba6501748c4908b908e55f42a5b66245b4cfe0c99326e1ef6e/marshmallow-3.26.2-py3-none-any.whl
@@ -2828,38 +2828,6 @@ packages:
   run_exports: {}
   size: 133826
   timestamp: 1760304475989
-- pypi: git+https://github.com/MIC-DKFZ/nnUNet.git#1489d746e084459581ff20382c1241d8cc2eb258
-  name: nnunetv2
-  version: 2.8.1
-  requires_dist:
-  - torch>=2.1.2,!=2.9.*
-  - acvl-utils>=0.2.6,<0.3
-  - dynamic-network-architectures>=0.4.4,<0.5
-  - tqdm
-  - scipy
-  - batchgenerators>=0.25.5
-  - numpy>=1.24
-  - scikit-learn
-  - scikit-image>=0.19.3
-  - simpleitk>=2.2.1
-  - pandas
-  - graphviz
-  - tifffile
-  - requests
-  - nibabel
-  - matplotlib
-  - seaborn
-  - imagecodecs
-  - yacs
-  - batchgeneratorsv2>=0.3.6
-  - einops
-  - blosc2>=3.3.2
-  - safetensors>=0.4.0
-  - timm>=1.0
-  - pre-commit ; extra == 'dev'
-  - torch<2.3 ; sys_platform == 'darwin' and extra == 'intel-macos'
-  - numpy<2 ; sys_platform == 'darwin' and extra == 'intel-macos'
-  requires_python: '>=3.10'
 - pypi: https://download-r2.pytorch.org/whl/cu126/torch-2.14.1%2Bcu126-cp314-cp314-manylinux_2_28_x86_64.whl
   name: torch
   version: 2.14.1+cu126
@@ -4193,6 +4161,37 @@ packages:
   - matplotlib ; extra == 'hires'
   - fsspec[http] ; extra == 'fsspec'
   requires_python: '>=3.11'
+- pypi: https://files.pythonhosted.org/packages/b3/0a/1102f1362b290d06aaf3a92163fb424e7499dbde407230d61d2617b355f2/nnunetv2-2.8.1-py3-none-any.whl
+  name: nnunetv2
+  version: 2.8.1
+  sha256: 58aeb5719c9ee7bdac4b420106940cf3b21ea08a28a494802b0921ca14fde63f
+  requires_dist:
+  - torch>=2.1.2,!=2.9.*
+  - acvl-utils>=0.2.6,<0.3
+  - dynamic-network-architectures>=0.4.4,<0.5
+  - tqdm
+  - scipy
+  - batchgenerators>=0.25.1
+  - numpy>=1.24
+  - scikit-learn
+  - scikit-image>=0.19.3
+  - simpleitk>=2.2.1
+  - pandas
+  - graphviz
+  - tifffile
+  - requests
+  - nibabel
+  - matplotlib
+  - seaborn
+  - imagecodecs
+  - yacs
+  - batchgeneratorsv2>=0.3.2
+  - einops
+  - blosc2>=3.3.2
+  - pre-commit ; extra == 'dev'
+  - torch<2.3 ; extra == 'intel-macos'
+  - numpy<2 ; extra == 'intel-macos'
+  requires_python: '>=3.10'
 - pypi: https://files.pythonhosted.org/packages/b3/38/89ba8ad64ae25be8de66a6d463314cf1eb366222074cfda9ee839c56a4b4/mdurl-0.1.2-py3-none-any.whl
   name: mdurl
   version: 0.1.2

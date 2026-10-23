@@ -10,9 +10,9 @@
 - `1-totalsegmentator.ipynb`：TotalSegmentator 範例（學生實際執行）。
 - `2-nnunet.ipynb`：nnU-Net 資料集 / 訓練 / 推論（學生實際執行）。nnU-Net 資料目錄固定在 `~/practice_seg/{nnUNet_raw,nnUNet_preprocessed,nnUNet_results}`（執行時自動建立）；**修改資料路徑時必須同步所有 code cell 與已存 output 中的路徑文字**。cell 2 會偵測課程伺服器 `/home/pipcache` 的共享資料集並自動 symlink（`link_shared`），資料複製 / label 轉換 / dataset.json / plan_and_preprocess / 測試集複製 cell 在已準備完成時自動跳過。
 - `scripts/prepare_shared_cache.py`：講師一次性準備全班共享快取（`/home/pipcache` 下的 `nnUNet_raw`、`nnUNet_preprocessed`、`.totalsegmentator` 權重，完成後對學生唯讀），在課程伺服器用 `pixi run python scripts/prepare_shared_cache.py` 執行；與 `2-nnunet.ipynb` 的偵測條件（`dataset.json` / `nnUNetPlans.json`）互為搭配，**改動其一須同步另一**。
-- `pixi.toml` / `pixi.lock`：**單一 default 環境**含課程兩部分全部相依——python 3.14 + ipykernel/jupyter_client + gcc/g++/graphviz + pypi: `totalsegmentator`、`torch==2.14.1+cu126` / `torchvision==0.29.1+cu126` / `torchaudio==2.11.0+cu126`、`batchgenerators==0.25.5`、`nnunetv2`（官方 git 相依）、`wheel`（sdist build 用）。**教程流程一律用 `pixi install` + `pixi run`，不要引入 `pixi init` / `pixi add`**；增刪相依請編輯 `pixi.toml` 後跑 `pixi lock` + `pixi install` 並一起 commit。
+- `pixi.toml` / `pixi.lock`：**單一 default 環境**含課程兩部分全部相依——python 3.14 + ipykernel/jupyter_client + gcc/g++/graphviz + pypi: `totalsegmentator`、`torch==2.14.1+cu126` / `torchvision==0.29.1+cu126` / `torchaudio==2.11.0+cu126`、`batchgenerators==0.25.5`、`nnunetv2==2.8.1`（官方 PyPI 套件）、`wheel`（sdist build 用）。**教程流程一律用 `pixi install` + `pixi run`，不要引入 `pixi init` / `pixi add`**；增刪相依請編輯 `pixi.toml` 後跑 `pixi lock` + `pixi install` 並一起 commit。
 - 不要用多個 pixi 環境拆課程相依：pixi 0.83 已驗證 (a) 非 default 環境的 pypi 相依會洩漏進 default 環境的 lock；(b) `[tasks]` 的 `default-environment` 不生效（task 一律跑在 default）。
-- nnU-Net 部分不需要另外 clone 官方 repo：`nnunetv2` 由 `pixi.toml` 的 git 相依在安裝時自 GitHub 拉取，環境在 `.pixi/envs/default`。
+- `nnunetv2` 用 PyPI 的 `==2.8.1`（官方 release wheel），不要用 git main：git main 自稱 2.8.1 但 code 較新（含 `fg_sampling` 功能），與 release 的 preprocessed 資料格式不相容（wheel 版 training 讀 git 版 plan 的資料會 `KeyError: 'class_locations'`）。**共享快取 `/home/pipcache/nnUNet_preprocessed` 必須與環境內的 nnunetv2 版本同一次 plan**。
 
 
 ## 環境與指令
