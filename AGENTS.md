@@ -19,6 +19,7 @@
 - 本機的 pixi 在 `~/.pixi/bin/pixi`（非登入 shell 可能不在 PATH，找不到時用全路徑）。
 - `pixi run extract`：pandoc 將 pptx 轉 markdown（ppt env）。
 - `pixi run info`：顯示 pptx 資訊（ppt env）。
+- 共享快取：課程伺服器上用 `export RATTLER_CACHE_DIR=/home/pipcache/pixi` 可讓全班共用 pixi 下載快取（已驗證 conda 套件、PyPI wheel、repodata 都走這個目錄，第二個專案可直接複用）。
 - 常用 tasks：`register-kernel`（myenv111）/ `register-kernel-nnunet`（nnunet333）/ `test-torch` / `test-totalseg` / `test-nnunet`（全部 `pixi run <task>`）。
 - `pixi.toml` 必須能被目前版本的 pixi（0.83+）解析：每環境相依用 `[environments.<name>.dependencies]`、任務指定環境用 `default-environment = "..."`。舊語法 `[dependencies.<name>]` + `env = "..."` 會解析失敗，不要 reintroduce。
 - `torch` 固定 `==2.5.1`（伺服器 GPU 驅動不支援更新版的 CUDA），不要升級。
