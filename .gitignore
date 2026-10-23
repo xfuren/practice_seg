@@ -11,6 +11,9 @@ predictions_3d_fullres/
 # notebook checkpoints
 .ipynb_checkpoints/
 
+# Python
+__pycache__/
+
 # 原始簡報（含舊版截圖，不放入 public repo；本機保留）
 步驟第二版.pptx
 
