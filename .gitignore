@@ -2,7 +2,7 @@
 .pixi/*
 !.pixi/config.toml
 
-# nnU-Net data folders (created by pip_2.ipynb / terminal steps)
+# nnU-Net data folders (created by 2-nnunet.ipynb / terminal steps)
 nnUNet_raw/
 nnUNet_preprocessed/
 nnUNet_results/

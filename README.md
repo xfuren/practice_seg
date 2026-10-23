@@ -2,17 +2,16 @@
 
 Medical image segmentation course material: **TotalSegmentator** (ready-made whole-body segmentation, simplified) + **nnU-Net** (train your own segmentation model with Jupyter Notebook). Environment management uses **Pixi** — no Conda / pip needed.
 
-`practice_nnUNet` 專案已合併進本 repo（該部分的 notebook `pip_2.ipynb` 就在這裡），**不需要另外 clone practice_nnUNet**。
+`practice_nnUNet` 專案已合併進本 repo（該部分的 notebook `2-nnunet.ipynb` 就在這裡），**不需要另外 clone practice_nnUNet**。
 
 ## 檔案內容
 
 | 檔案 | 說明 |
 |----|----|
 | `步驟第二版.md` | 完整分步教程（Pixi 版），**請依照這份執行** |
-| `task1-pip_2.ipynb` | TotalSegmentator 範例 notebook |
-| `pip_2.ipynb` | nnU-Net 資料集建立 / 訓練 / 推論 notebook |
+| `1-totalsegmentator.ipynb` | TotalSegmentator 範例 notebook |
+| `2-nnunet.ipynb` | nnU-Net 資料集建立 / 訓練 / 推論 notebook |
 | `pixi.toml` / `pixi.lock` | Pixi 環境定義與鎖定檔（單一環境，已含兩部分全部相依） |
-| `scripts/pptx_info.py` | 簡報資訊處理工具（`pixi run info` / `pixi run extract` 使用） |
 
 ## 快速開始（詳細步驟見 `步驟第二版.md`）
 
